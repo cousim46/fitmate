@@ -1,4 +1,7 @@
+
 spring:
+  application:
+    name: member-service
   datasource:
     url: jdbc:mysql://localhost:3309/fitmate_local
     username: fitmate_local
@@ -11,3 +14,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
+server:
+  port: 8000
+  servlet:
+    context-path: /member-service

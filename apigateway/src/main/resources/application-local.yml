@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: apigateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: member-service
+              uri: http://localhost:8000
+              predicates:
+                - Path=/member-service/**
+              filters:
+                - StripPrefix=1
+
+
