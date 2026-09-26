@@ -2,3 +2,4 @@ rootProject.name='fitmate'
 
 include 'member-service'
 include 'apigateway'
+include 'frontend'

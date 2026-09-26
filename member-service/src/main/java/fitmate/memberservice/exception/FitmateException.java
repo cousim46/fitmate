@@ -2,11 +2,13 @@ package fitmate.memberservice.exception;
 
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Getter
-public class FitmateException extends RuntimeException{
-    private ErrorCode errorCode;
+public class FitmateException extends RuntimeException {
+    private final ErrorCode errorCode;
 
+    public FitmateException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
+    }
 }
