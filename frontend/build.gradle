@@ -1,0 +1,27 @@
+plugins {
+    id 'base'
+}
+
+def frontendDir = projectDir
+
+task npmInstall(type: Exec) {
+    workingDir frontendDir
+    commandLine 'npm', 'install'
+    inputs.file "$frontendDir/package.json"
+    outputs.dir "$frontendDir/node_modules"
+}
+
+task npmBuild(type: Exec, dependsOn: npmInstall) {
+    workingDir frontendDir
+    commandLine 'npm', 'run', 'build'
+    inputs.dir "$frontendDir/src"
+    inputs.file "$frontendDir/vite.config.ts"
+    outputs.dir "$frontendDir/dist"
+}
+
+task npmTest(type: Exec, dependsOn: npmInstall) {
+    workingDir frontendDir
+    commandLine 'npm', 'run', 'test', '--', '--run'
+}
+
+assemble.dependsOn npmBuild
