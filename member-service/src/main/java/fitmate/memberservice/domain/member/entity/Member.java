@@ -21,6 +21,8 @@ public class Member extends BaseEntity {
     @Id
     @Column(nullable = false,length = 50)
     private String id;
+    @Column(nullable = false,length = 100, comment = "닉네임")
+    private String nickname;
     @Column(nullable = false,length = 100, comment = "이름")
     private String name;
     @Column(nullable = false,length = 100, comment = "이메일")
@@ -34,17 +36,21 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30, comment = "성별")
     private Gender gender;
+    @Column(length = 30, comment = "추천인 코드")
+    private String recommendationCode;
 
 
-    public static Member of(String id, String name, String email, String password, String phone, Gender gender, LocalDate birth) {
+    public static Member of(String id,String nickname, String name, String email, String password, String phone, Gender gender, LocalDate birth, String recommendationCode) {
         Member member = new Member();
         member.id = id;
+        member.nickname = nickname;
         member.name = name;
         member.email = email;
         member.password = password;
         member.phone = phone;
         member.birth = birth;
         member.gender = gender;
+        member.recommendationCode = recommendationCode;
         return member;
     }
 }

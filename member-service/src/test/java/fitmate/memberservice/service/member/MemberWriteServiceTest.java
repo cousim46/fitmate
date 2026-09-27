@@ -35,16 +35,19 @@ class MemberWriteServiceTest {
         String email = "test@naver.com";
         String name = "name";
         String phone = "phone";
+        String nickname = "nickname";
         String password = "password";
         Gender gender = Gender.MALE;
         LocalDate birth = LocalDate.now();
-        MemberJoin memberJoin = new MemberJoin(UlidCreator.getUlid().toString(), name, phone, email,
-            password, gender,
-            birth);
+        MemberJoin memberJoin = new MemberJoin(UlidCreator.getUlid().toString(),nickname, name, phone, email,
+            password, password,gender,
+            birth,
+            null);
         memberJpaRepository.save(memberJoin.toEntity());
-        MemberJoin duplicateEmailmemberJoin = new MemberJoin(UlidCreator.getUlid().toString(), name, phone, email,
-            password, gender,
-            birth);
+        MemberJoin duplicateEmailmemberJoin = new MemberJoin(UlidCreator.getUlid().toString(),nickname, name, phone, email,
+            password,password, gender,
+            birth,
+            null);
 
         //when
         FitmateException fitmateException = assertThrows(FitmateException.class,
@@ -63,12 +66,14 @@ class MemberWriteServiceTest {
         String email = "test@naver.com";
         String name = null;
         String phone = "phone";
+        String nickname = "nickname";
         String password = "password";
         Gender gender = Gender.MALE;
         LocalDate birth = LocalDate.now();
-        MemberJoin memberJoin = new MemberJoin(UlidCreator.getUlid().toString(), name, phone, email,
-            password, gender,
-            birth);
+        MemberJoin memberJoin = new MemberJoin(UlidCreator.getUlid().toString(),nickname, name, phone, email,
+            password,password, gender,
+            birth,
+            null);
         //when
         FitmateException fitmateException = assertThrows(FitmateException.class,
             () -> memberWriteService.join(memberJoin));
@@ -76,7 +81,31 @@ class MemberWriteServiceTest {
         //then
         assertThat(fitmateException.getErrorCode()).isEqualTo(ErrorCode.NON_NULL_REQUIRED_ELEMENT);
         assertThat(fitmateException.getMessage()).isEqualTo(ErrorCode.NON_NULL_REQUIRED_ELEMENT.getMessage());
+    }
 
+    @DisplayName("회원가입 시 비밀번호와 재확인 비밀번호가 일치하지 않으면 예외가 발생한다.")
+    @Test
+    void occurMismatchPasswordAndConfirmPasswordException() {
+        //given
+        String email = "test@naver.com";
+        String name = null;
+        String phone = "phone";
+        String password = "password";
+        String nickname = "nickname";
+        String confirmPassword = "cpassword";
+        Gender gender = Gender.MALE;
+        LocalDate birth = LocalDate.now();
+        MemberJoin memberJoin = new MemberJoin(UlidCreator.getUlid().toString(), nickname,name, phone, email,
+            password,confirmPassword, gender,
+            birth,
+            null);
+        //when
+        FitmateException fitmateException = assertThrows(FitmateException.class,
+            () -> memberWriteService.join(memberJoin));
+
+        //then
+        assertThat(fitmateException.getErrorCode()).isEqualTo(ErrorCode.MISMATCH_PASSWORD);
+        assertThat(fitmateException.getMessage()).isEqualTo(ErrorCode.MISMATCH_PASSWORD.getMessage());
     }
 
 }

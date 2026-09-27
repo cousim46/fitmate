@@ -21,8 +21,8 @@ class MemberJpaRepositoryTest {
         //given
         String email = "test@naver.com";
         memberJpaRepository.save(
-            Member.of("id", "name", email, "password", "phone", Gender.FEMALE,
-                LocalDate.of(1992, 10, 10)));
+            Member.of("id", "nickname", "name", email, "password", "phone", Gender.FEMALE,
+                LocalDate.of(1992, 10, 10), null));
         //when
         boolean isExistsEmail = memberJpaRepository.existsByEmail(email);
 
@@ -38,13 +38,46 @@ class MemberJpaRepositoryTest {
         String email = "test@naver.com";
         String newEmail = "test123@naver.com";
         memberJpaRepository.save(
-            Member.of("id", "name", email, "password", "phone", Gender.FEMALE,
-                LocalDate.of(1992, 10, 10)));
+            Member.of("id", "nickname", "name", email, "password", "phone", Gender.FEMALE,
+                LocalDate.of(1992, 10, 10), null));
         //when
         boolean isExistsEmail = memberJpaRepository.existsByEmail(newEmail);
 
         //then
         Assertions.assertThat(isExistsEmail).isFalse();
+    }
+
+    @DisplayName("닉네임이 존재하지 않으면 false를 반환한다.")
+    @Test
+    void existNicknameReturnFalse() {
+        //given
+        String nickname = "nickname";
+        String newNickname = "newNickname2";
+        memberJpaRepository.save(
+            Member.of("id", nickname, "name", "test123@naver.com", "password", "phone", Gender.FEMALE,
+                LocalDate.of(1992, 10, 10), null));
+        //when
+        boolean isExistsNickname = memberJpaRepository.existsByNickname(newNickname);
+
+        //then
+        Assertions.assertThat(isExistsNickname).isFalse();
+
+    }
+
+    @DisplayName("닉네임이 존재하면 true를 반환한다.")
+    @Test
+    void existNicknameReturnTrue() {
+        //given
+        String nickname = "nickname";
+        memberJpaRepository.save(
+            Member.of("id", nickname, "name", "test123@naver.com", "password", "phone", Gender.FEMALE,
+                LocalDate.of(1992, 10, 10), null));
+        //when
+        boolean isExistsNickname = memberJpaRepository.existsByNickname(nickname);
+
+        //then
+        Assertions.assertThat(isExistsNickname).isTrue();
+
     }
 
 

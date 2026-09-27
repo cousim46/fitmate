@@ -1,6 +1,7 @@
 package fitmate.memberservice.service.member;
 
 import static fitmate.memberservice.exception.ErrorCode.DUPLICATE_EMAIL;
+import static fitmate.memberservice.exception.ErrorCode.MISMATCH_PASSWORD;
 import static fitmate.memberservice.exception.ErrorCode.NON_NULL_REQUIRED_ELEMENT;
 
 import fitmate.memberservice.annotation.WriteService;
@@ -15,16 +16,13 @@ public class MemberWriteService {
 
     private final MemberJpaRepository memberJpaRepository;
 
-    public void join(MemberJoin memberJoin) {
+    public void join(MemberJoin memberJoin)  {
+        if(memberJoin.mismatchPassword()) {
+            throw new FitmateException(MISMATCH_PASSWORD);
+        }
         if(!memberJoin.nonNullRequiredElement()) {
             throw new FitmateException(NON_NULL_REQUIRED_ELEMENT);
         }
-        if(memberJpaRepository.existsByEmail(memberJoin.email())) {
-            throw new FitmateException(DUPLICATE_EMAIL);
-        }
-        memberJoin.toEntity();
         memberJpaRepository.save(memberJoin.toEntity());
     }
-
-
 }
