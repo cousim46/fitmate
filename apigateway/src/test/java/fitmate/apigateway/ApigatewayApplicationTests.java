@@ -1,10 +1,10 @@
-package fitmate.memberservice;
+package fitmate.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MemberServiceApplicationTests {
+class ApigatewayApplicationTests {
 
     @Test
     void contextLoads() {

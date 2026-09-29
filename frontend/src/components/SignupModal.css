@@ -1,0 +1,306 @@
+/* ── Overlay ─────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 22, 0.5);
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Sheet ───────────────────────────────────── */
+.signup-modal {
+  position: fixed;
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 201;
+  background: var(--surface);
+  border-radius: 28px 28px 0 0;
+  padding: 16px 24px calc(24px + env(safe-area-inset-bottom));
+  animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Handle ──────────────────────────────────── */
+.signup-modal__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  margin: 0 auto 24px;
+}
+
+/* ── Head area ───────────────────────────────── */
+.signup-modal__head {
+  margin-bottom: 20px;
+}
+
+/* ── Back button ─────────────────────────────── */
+.signup-modal__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--dark);
+  margin-bottom: 16px;
+  transition: background 0.18s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.signup-modal__back:hover {
+  background: var(--border);
+}
+
+/* ── Selected type badge (Step 2 상단) ────────── */
+.signup-modal__selected-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--accent-light);
+  margin-bottom: 14px;
+}
+
+.signup-modal__selected-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.signup-modal__selected-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.signup-modal__selected-check {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* ── Title / Sub ─────────────────────────────── */
+.signup-modal__title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.signup-modal__sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Type grid (Step 1) ──────────────────────── */
+.signup-modal__type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+/* ── Type card ───────────────────────────────── */
+.type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px 14px;
+  border-radius: 18px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.18s, background 0.18s, transform 0.15s, box-shadow 0.18s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 138px;
+}
+
+.type-card:active {
+  transform: scale(0.97);
+}
+
+.type-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(191, 138, 90, 0.14);
+}
+
+.type-card__icon {
+  font-size: 24px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.type-card__badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.type-card__label {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.type-card__desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Options (Step 2) ────────────────────────── */
+.signup-modal__options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.signup-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.signup-option:active {
+  transform: scale(0.98);
+}
+
+/* 카카오 */
+.signup-option--kakao {
+  background: #FEE500;
+  color: #191600;
+}
+
+.signup-option--kakao:hover {
+  filter: brightness(0.96);
+  box-shadow: 0 6px 20px rgba(254, 229, 0, 0.45);
+}
+
+/* 이메일 */
+.signup-option--default {
+  background: var(--dark);
+  color: var(--bg);
+}
+
+.signup-option--default:hover {
+  background: #2E2A26;
+  box-shadow: 0 6px 20px rgba(28, 25, 22, 0.18);
+}
+
+/* ── Option icon ─────────────────────────────── */
+.signup-option__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.signup-option--kakao .signup-option__icon {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.signup-option--default .signup-option__icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Option text ─────────────────────────────── */
+.signup-option__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.signup-option__label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.signup-option__desc {
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+/* ── Cancel ──────────────────────────────────── */
+.signup-modal__cancel {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.signup-modal__cancel:hover {
+  color: var(--dark);
+  background: var(--border);
+}
+
+/* ── Desktop: centered dialog ────────────────── */
+@media (min-width: 769px) {
+  .signup-modal {
+    top: 50%;
+    bottom: auto;
+    inset-inline: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 440px;
+    border-radius: 28px;
+    padding: 24px 28px 28px;
+    animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: translate(-50%, -46%) scale(0.95); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+
+  .signup-modal__handle {
+    display: none;
+  }
+}
